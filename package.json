@@ -1,0 +1,23 @@
+{
+  "name": "stock-api",
+  "version": "1.0.0",
+  "description": "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -",
+  "main": "nightmare-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ferhat-hajdarpasic/stock-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ferhat-hajdarpasic/stock-api/issues"
+  },
+  "homepage": "https://github.com/ferhat-hajdarpasic/stock-api#readme",
+  "dependencies": {
+    "nightmare": "^2.10.0"
+  }
+}
