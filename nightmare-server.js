@@ -1,6 +1,7 @@
 var Nightmare = require('nightmare');
 var nightmare = Nightmare({ show: false })
 
+console.log('Starting...');
 nightmare
   .goto('http://www.asx.com.au/asx/markets/equityPrices.do?by=asxCodes&asxCodes=NAB')
   //.type('form[action*="/search"] [name=p]', 'github nightmare')
@@ -17,3 +18,5 @@ nightmare
   .catch(function (error) {
     console.error('Search failed:', error);
   });
+  console.log('Finishing...');
+  
