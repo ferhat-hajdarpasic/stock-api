@@ -1,4 +1,5 @@
 var Nightmare = require('nightmare');
+const readline = require('readline');
 var nightmare = Nightmare({
   waitTimeout: 30000,
   openDevTools: {
@@ -44,6 +45,17 @@ var nightmare = Nightmare({
 
 
   scrape('NAB', success, failure);
-  scrape('BHP', success, failure);
+
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.question('Please enter symbol to lookup? ', (answer) => {
+    console.log(`OK, kooking up: ${answer}`);
+    scrape(`${answer}`, success, failure);
+    rl.close();
+  });
   
   
