@@ -1,15 +1,11 @@
 var Nightmare = require('nightmare');
 var nightmare = Nightmare({
-    waitTimeout: 60000,
-    openDevTools: {
-      mode: 'detach'
-    }, show: false })
+  waitTimeout: 30000,
+  openDevTools: {
+    mode: 'attach'
+  }, show: true })
 
-  nightmare
-  .goto('http://www.asx.com.au/asx/markets/dividends.do?by=asxCodes&asxCodes=NAB&view=all')
-  .wait('#dividends')
-  .evaluate(function () {
-      console.log('In evaluate. Found the element!');
+  var query = function () {
     var table = document.querySelector('table.datatable')
     var tr = table.querySelectorAll('tr')
     var table = [];
@@ -26,14 +22,28 @@ var nightmare = Nightmare({
         });
     }
     return table;
-    //var dividends = transformToDividendObject(getDividendsTableData(rows));
-  })
-  .end()
-  .then(function (result) {
+  };
+
+  var success = function (result) {
     console.log(JSON.stringify(result));
-  })
-  .catch(function (error) {
+  };
+
+  var failure = function (error) {
     console.error('Search failed:', error);
-  });
+  };
+
+  var scrape = function(ticker, success, failure) {
+    var page = nightmare.goto(`http://www.asx.com.au/asx/markets/dividends.do?by=asxCodes&asxCodes=${ticker}&view=all`);
+    page = page.wait(5000);
+    page = page.wait('#dividends');
+    page = page.evaluate(query);
+    //page = page.end();
+    page = page.then(success);
+    page = page.catch(failure);  
+  };
+
+
+  scrape('NAB', success, failure);
+  scrape('BHP', success, failure);
   
   
